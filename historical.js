@@ -15,14 +15,14 @@ btn.addEventListener("click", (e) => {
   if (!fromDate || !baseCurr || !targetCurr) {
     alert("please enter a date");
   } else {
-    getHistoricalData(fromDate, endDate, baseCurr, targetCurr);
+    getHistoricalData(fromDate, baseCurr, targetCurr);
   }
 });
 
-let getHistoricalData = async (fromDate, endDate, base, target) => {
+let getHistoricalData = async (fromDate, base, target) => {
   try {
     const response = await fetch(
-      `https://api.apilayer.com/exchangerates_data/timeseries?start_date=${fromDate}&end_date=${endDate}&base=${base}&symbols=${target}`,
+      `https://api.apilayer.com/exchangerates_data/${fromDate}?symbols=${target}&base=${base}`,
       requestOptions
     );
     let data = await response.json();
