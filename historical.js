@@ -17,7 +17,7 @@ btn.addEventListener("click", (e) => {
 let getHistoricalData = async (fromDate, base, target) => {
   try {
     const response = await fetch(
-      `https://api.apilayer.com/exchangerates_data/2009-01-24?symbols=${target}&base=${base}`,
+      `https://api.apilayer.com/exchangerates_data/${fromDate}?symbols=${target}&base=${base}`,
       requestOptions
     );
     let data = await response.json();
@@ -28,7 +28,7 @@ let getHistoricalData = async (fromDate, base, target) => {
     let rateData = Object.keys(data.rates)[0];
     console.log(rateData);
 
-    html = `<p> Historical exchange rate on 2009-01-24 is 1${base} :  ${data.rates[
+    html = `<p> Historical exchange rate on ${fromDate} is 1${base} :  ${data.rates[
       dataRatesKey
     ].toFixed(2)} ${target}</p>`;
 
