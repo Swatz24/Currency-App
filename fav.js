@@ -11,7 +11,7 @@ if (!buttons) {
 }
 if (buttons.length) {
   loadButtons(buttons);
-  addEventListenerToFavButtons(currencyPairs);
+  FavButtons(currencyPairs);
 }
 
 let addButtonsToStorage = (base, target) => {
@@ -38,10 +38,10 @@ function createFavButton(base, target) {
 save.addEventListener("click", (event) => {
   event.preventDefault();
   addButtonsToStorage(base.value, target.value);
-  addEventListenerToFavButtons(currencyPairs);
+  FavButtons(currencyPairs);
 });
 
-function addEventListenerToFavButtons(div) {
+function FavButtons(div) {
   if (div.hasChildNodes()) {
     div.childNodes.forEach((childNode) => {
       childNode.addEventListener("click", (event) => {
