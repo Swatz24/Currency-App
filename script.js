@@ -51,8 +51,17 @@ const submitElm = document.querySelector("#submit");
 submitElm.addEventListener("click", (e) => {
   e.preventDefault();
   result.innerHTML = "";
+  amount = inputElm.value;
   console.log("Amount entered", inputElm.value);
   let from = document.querySelector("#base-currency").value;
   let to = document.querySelector("#target-currency").value;
-  convertCurrency(from, to);
+  if (isNaN(amount)) {
+    alert("Invalid amount");
+  } else if (amount <= 0) {
+    alert("Amount should be greater than 0");
+  } else if (from == to) {
+    alert("Currencies cannot be same.");
+  } else {
+    convertCurrency(from, to);
+  }
 });
