@@ -4,14 +4,19 @@ const currencyPairs = document.querySelector("#favorite-currency-pairs");
 const base = document.querySelector("#base-currency");
 const target = document.querySelector("#target-currency");
 
-let addButtonsToStorage = (base, target) => {
-  let buttons = JSON.parse(localStorage.getItem("buttons"));
-  if (!buttons) {
-    buttons = [];
-    localStorage.setItem("buttons", JSON.stringify(buttons));
-  }
-  // let buttons = JSON.parse(localStorage.getItem("buttons"));
+let buttons = JSON.parse(localStorage.getItem("buttons"));
+if (!buttons) {
+  buttons = [];
+  localStorage.setItem("buttons", JSON.stringify(buttons));
+}
+if (buttons.length) {
+  loadButtons(buttons);
+  addEventListenerToFavButtons(currencyPairs);
+}
 
+let addButtonsToStorage = (base, target) => {
+  // let buttons = JSON.parse(localStorage.getItem("buttons"));
+  let buttons = JSON.parse(localStorage.getItem("buttons"));
   let btnObj = {
     base: base,
     target: target,
@@ -23,12 +28,12 @@ let addButtonsToStorage = (base, target) => {
   localStorage.setItem("buttons", JSON.stringify(buttons));
 };
 
-let createFavButton = (base, target) => {
+function createFavButton(base, target) {
   let button = document.createElement("button");
   button.innerHTML = `${base}=>${target}`;
   button.id = `${base}-${target}`;
   currencyPairs.appendChild(button);
-};
+}
 
 save.addEventListener("click", (event) => {
   event.preventDefault();
@@ -36,7 +41,7 @@ save.addEventListener("click", (event) => {
   addEventListenerToFavButtons(currencyPairs);
 });
 
-let addEventListenerToFavButtons = (div) => {
+function addEventListenerToFavButtons(div) {
   if (div.hasChildNodes()) {
     div.childNodes.forEach((childNode) => {
       childNode.addEventListener("click", (event) => {
@@ -47,4 +52,12 @@ let addEventListenerToFavButtons = (div) => {
       });
     });
   }
-};
+}
+
+function loadButtons(buttons) {
+  if (buttons.length) {
+    buttons.forEach((button) => {
+      createFavButton(button.base, button.target);
+    });
+  }
+}
